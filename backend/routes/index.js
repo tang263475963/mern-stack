@@ -1,9 +1,9 @@
 const express = require('express');
+const router = express.Router();
 const User = require('../models/index.js');
-const routes = express.Router();
 
 router.get('/', (req, res) => {
-    User.find({},(err,data) => {
+    User.find({}, (err, data) => {
         res.json(data);
     })
 })
@@ -14,13 +14,13 @@ router.get('/:id', (req, res) => {
     })
 })
 
-router,delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
     await User.findByIdAndDelete(req.params.id);
-    res.json({'message': 'Deleted'})
+    res.json({ 'message': 'Deleted' });
 })
 
 router.post('/', (req, res) => {
-    User = new User({
+    user = new User({
         name: req.body.name,
         email: req.body.email,
         password: req.body.password
@@ -31,8 +31,8 @@ router.post('/', (req, res) => {
 })
 
 router.put('/:id', async (req, res) => {
-    await User.findByIdAndDelete(req.params.id, req.body);
-    res.json({'message': 'Updated'})
+    await User.findByIdAndUpdate(req.params.id, req.body);
+    res.json({ 'message': 'Updated' })
 })
 
-module.express = router
+module.exports = router
